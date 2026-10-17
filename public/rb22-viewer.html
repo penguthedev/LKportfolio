@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lin Khant · Formula study</title>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.164.1/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.164.1/examples/jsm/"}}</script>
+<style>html,body{margin:0;width:100%;height:100%;overflow:hidden;background:transparent}canvas{display:block;width:100%;height:100%;pointer-events:none}.fallback{position:absolute;inset:0;display:grid;place-items:center;background:transparent;color:#d8aab1;font:12px system-ui;letter-spacing:.11em}.fallback[hidden]{display:none}</style></head>
+<body><div class="fallback" id="status">PREPARING MECHANICAL SCENE</div>
+<script>setTimeout(() => { const label=document.getElementById("status"); if(label)label.hidden=true; }, 7000);</script>
+<script type="module">
+import * as THREE from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+const status=document.getElementById('status');
+const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const scene=new THREE.Scene();
+const camera=new THREE.PerspectiveCamera(35,1,.1,100);
+const defaultCameraPos=new THREE.Vector3(7.2,3.5,8.9);
+const defaultTarget=new THREE.Vector3(.1,.43,0);
+const currentCameraPos=defaultCameraPos.clone();
+const currentLookAt=defaultTarget.clone();
+camera.position.copy(defaultCameraPos);
+const renderer=new THREE.WebGLRenderer({antialias:true,alpha:true,powerPreference:'default'});
+renderer.setPixelRatio(Math.min(devicePixelRatio||1,1.5));
+renderer.setClearColor(0x080a0e,0);
+renderer.outputColorSpace=THREE.SRGBColorSpace;
+renderer.toneMapping=THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure=1.48;
+document.body.appendChild(renderer.domElement);
+scene.add(new THREE.HemisphereLight(0xf6f2f0,0x1e1118,2.4));
+const white=new THREE.DirectionalLight(0xf7f5f2,3.2);white.position.set(-5,8,7);scene.add(white);
+const red=new THREE.DirectionalLight(0xff263f,4.6);red.position.set(6,3,-4);scene.add(red);
+const edge=new THREE.DirectionalLight(0xc2d4f9,1.65);edge.position.set(-8,4,-8);scene.add(edge);
+let loaded=false,stopped=false,hovered=false,explode=0,spin=0,frameId=0,last=0;
+const pointer={x:0,y:0};
+const tempVec=new THREE.Vector3();
+const tempDir=new THREE.Vector3();
+const desiredCameraPos=new THREE.Vector3();
+const desiredLookAt=new THREE.Vector3();
+const machine=new THREE.Group();machine.position.set(1.7,0,0);scene.add(machine);
+// GLB geometry uses local -Z as height: +90 degrees correctly makes its tires point down.
+const body=new THREE.Group();body.rotation.x=Math.PI/2;machine.add(body);
+const regions={};
+const raycaster=new THREE.Raycaster();
+const rayPointer=new THREE.Vector2();
+const pickables=[];
+const regionMaterials=new Map();
+let selectedPart=null;
+function selectPart(id){
+  const valid=id===null||Object.prototype.hasOwnProperty.call(regions,id);
+  if(!valid)return;
+  selectedPart=id;
+  for(const [name,materials] of regionMaterials){
+    for(const material of materials){
+      material.emissive.setHex(name===id?0xff3458:0x000000);
+      material.emissiveIntensity=name===id?0.26:0;
+    }
+  }
+  parent.postMessage({source:'lin-f1',type:'SELECTED',part:id},location.origin);
+}
+function pickPart(x,y){
+  if(!loaded)return;
+  rayPointer.set(THREE.MathUtils.clamp(x,-1,1),THREE.MathUtils.clamp(y,-1,1));
+  scene.updateMatrixWorld(true);
+  raycaster.setFromCamera(rayPointer,camera);
+  const found=raycaster.intersectObjects(pickables,false);
+  if(found.length){
+    selectPart(found[0].object.userData.partId||null);
+  }
+}
+
+// The original asset has one GLB mesh with many material primitives. We partition triangles
+// spatially into meaningful mechanical regions, preserving its actual geometry and UVs.
+const zoneNames=['core','frontWing','frontNose','rearWing','rearBody','frontLeftWheel','frontRightWheel','rearLeftWheel','rearRightWheel','leftPod','rightPod','cockpit'];
+// The imported model faces local +Y: its rear light is at -Y and the nose is at +Y.
+// Keep the part ids in sync with src/data/carParts.ts for accurate selection/zoom.
+const centers={core:[0,0,-.63],frontWing:[0,2.55,-.46],frontNose:[0,1.7,-.84],rearWing:[0,-2.3,-.88],rearBody:[0,-1.5,-.49],frontLeftWheel:[-.78,1.75,-.34],frontRightWheel:[.78,1.75,-.34],rearLeftWheel:[-.8,-1.75,-.34],rearRightWheel:[.8,-1.75,-.34],leftPod:[-.55,.1,-.62],rightPod:[.55,.1,-.62],cockpit:[0,.45,-.40]};
+const offsets={core:[0,0,0],frontWing:[0,1.8,-.72],frontNose:[0,1.05,-.25],rearWing:[0,-1.7,-1.25],rearBody:[0,-.4,-1.06],frontLeftWheel:[-1.1,.34,-.18],frontRightWheel:[1.1,.34,-.18],rearLeftWheel:[-1.2,-.43,-.23],rearRightWheel:[1.2,-.43,-.23],leftPod:[-1.1,-.1,-.25],rightPod:[1.1,-.1,-.25],cockpit:[0,.02,-1.28]};
+for(const key of zoneNames){const grp=new THREE.Group();const c=centers[key];grp.position.set(...c);body.add(grp);regions[key]=grp}
+function zone(x,y,z,materialName){
+  const isWheel=/(sidewall|wheel_hub|discs)/.test(materialName);
+  if(isWheel){return (y>0?'front':'rear')+(x<0?'Left':'Right')+'Wheel'}
+  if(y > 2.12)return 'frontWing';
+  if(y < -2.12)return 'rearWing';
+  if(y > 1.31&&Math.abs(x)>.65)return x<0?'frontLeftWheel':'frontRightWheel';
+  if(y < -1.32&&Math.abs(x)>.68)return x<0?'rearLeftWheel':'rearRightWheel';
+  if(y > 1.35)return 'frontNose';
+  if(y < -1.26)return 'rearBody';
+  if(Math.abs(x)>.38)return x<0?'leftPod':'rightPod';
+  if(z > -.44&&y >-.8 && y<1.05)return 'cockpit';
+  return 'core';
+}
+function recolor(material){
+ const m=material.clone();const n=(m.name||'').toLowerCase();
+ if(/redbull_decals|redbull_number|sw_decals/.test(n))return null;
+ if(/paint|redbull_color/.test(n)){
+   m.map=null;m.color.setHex(0xa5122b);m.metalness=.56;m.roughness=.25;
+ }else if(/redbull_detail|generics2/.test(n)){
+   m.map=null;m.color.setHex(0x2b323e);m.metalness=.54;m.roughness=.33;
+ }else if(/carbon/.test(n)){
+   m.color.setHex(0x303540);m.metalness=.36;m.roughness=.4;
+ }else if(/sidewall/.test(n)){
+   m.color.setHex(0x383838);m.metalness=.03;m.roughness=.88;
+ }else if(/wheel_hub|chrome|discs/.test(n)){
+   m.color.setHex(0x9ba2ad);m.metalness=.78;m.roughness=.26;
+ }else if(/steering|cinture/.test(n)){
+   m.color.setHex(0x5f6571);m.metalness=.31;m.roughness=.45;
+ }else{
+   m.color.multiplyScalar(.82);
+ }
+ m.needsUpdate=true;return m;
+}
+function partition(source){
+ let triCount=0,partitionCount=0;
+ source.traverse(mesh=>{
+  if(!mesh.isMesh||!mesh.geometry)return;
+  const mat=mesh.material;
+  if(Array.isArray(mat))return; // Each GLB material primitive is a separate child.
+  const material=recolor(mat);if(!material)return;
+  const geo=mesh.geometry,pos=geo.getAttribute('position'),originalIndex=geo.getIndex();
+  if(!pos)return;
+  const indices=originalIndex?originalIndex.array:null;
+  const total=indices?indices.length:pos.count;
+  const groups=new Map();
+  for(let i=0;i+2<total;i+=3){
+    const a=indices?indices[i]:i,b=indices?indices[i+1]:i+1,c=indices?indices[i+2]:i+2;
+    const x=(pos.getX(a)+pos.getX(b)+pos.getX(c))/3;
+    const y=(pos.getY(a)+pos.getY(b)+pos.getY(c))/3;
+    const z=(pos.getZ(a)+pos.getZ(b)+pos.getZ(c))/3;
+    const key=zone(x,y,z,(mat.name||'').toLowerCase());
+    if(!groups.has(key))groups.set(key,[]);
+    groups.get(key).push(a,b,c);triCount++;
+  }
+  for(const [key,ix] of groups){
+    if(ix.length<3)continue;
+    const piece=new THREE.BufferGeometry();
+    for(const [attributeName,attr] of Object.entries(geo.attributes))piece.setAttribute(attributeName,attr);
+    piece.setIndex(ix);
+    const partMaterial=material.clone();
+    const meshPart=new THREE.Mesh(piece,partMaterial);
+    meshPart.userData.partId=key;
+    pickables.push(meshPart);
+    if(!regionMaterials.has(key))regionMaterials.set(key,[]);
+    regionMaterials.get(key).push(partMaterial);
+    const center=centers[key];meshPart.position.set(-center[0],-center[1],-center[2]);
+    meshPart.frustumCulled=false;
+    regions[key].add(meshPart);partitionCount++;
+  }
+ });
+ console.info('Formula geometry partitioned into',partitionCount,'meshes /',triCount,'triangles');
+}
+try{
+  new GLTFLoader().load('/models/formula-rb22-optimized.glb',gltf=>{
+    partition(gltf.scene);loaded=true;status.hidden=true;parent.postMessage({source:'lin-f1',type:'READY'},location.origin);start();
+  },undefined,()=>{status.textContent='3D VIEW UNAVAILABLE';parent.postMessage({source:'lin-f1',type:'ERROR'},location.origin)})
+}catch{status.textContent='3D VIEW UNAVAILABLE'}
+function resize(){const w=innerWidth,h=innerHeight;camera.aspect=w/Math.max(1,h);camera.updateProjectionMatrix();renderer.setSize(w,h,false)}
+addEventListener('resize',resize);resize();
+function animate(now){
+ frameId=0;
+ if(!loaded||document.hidden||stopped)return;
+ const dt=Math.min((now-(last||now))/1000,.05);last=now;
+ // Slow orbit around the car's vertical axis. Faster movement would distract from the text.
+ spin=(spin+dt*(selectedPart?.015:.11))%(Math.PI*2);
+ machine.position.z=0;
+ machine.position.x=1.7;
+ machine.rotation.y=spin;
+ const shouldExplode=hovered||!!selectedPart;
+ explode=THREE.MathUtils.damp(explode,shouldExplode?1:0,reduced?15:3.4,dt);
+ for(const key of zoneNames){
+   const group=regions[key],c=centers[key],d=offsets[key];
+   group.position.set(c[0]+d[0]*explode,c[1]+d[1]*explode,c[2]+d[2]*explode);
+   if(key.toLowerCase().includes('wheel'))group.rotation.x+=dt*1.6;
+ }
+ body.position.y=.08;
+ if(selectedPart&&regions[selectedPart]){
+   regions[selectedPart].getWorldPosition(tempVec);
+   desiredLookAt.copy(tempVec);
+   tempDir.copy(defaultCameraPos).sub(defaultTarget).normalize();
+   const isWheel=selectedPart.toLowerCase().includes('wheel');
+   const isWing=selectedPart.toLowerCase().includes('wing');
+   const isPod=selectedPart.toLowerCase().includes('pod');
+   const zoomDistance=isWheel?3.35:isWing?4.2:isPod?4.0:3.7;
+   const verticalLift=isWheel?0.1:isWing?0.32:.24;
+   desiredCameraPos.copy(desiredLookAt).addScaledVector(tempDir,zoomDistance);
+   desiredCameraPos.y+=verticalLift;
+   desiredCameraPos.x+=pointer.x*.08;
+   desiredCameraPos.y+=pointer.y*.06;
+ }else{
+   desiredLookAt.copy(defaultTarget);
+   desiredCameraPos.set(defaultCameraPos.x+pointer.x*.13,defaultCameraPos.y+pointer.y*.09,defaultCameraPos.z);
+ }
+ currentLookAt.lerp(desiredLookAt,1-Math.exp(-dt*(selectedPart?5.2:3.4)));
+ currentCameraPos.lerp(desiredCameraPos,1-Math.exp(-dt*(selectedPart?4.8:3.2)));
+ camera.position.copy(currentCameraPos);
+ camera.lookAt(currentLookAt);
+ renderer.render(scene,camera);
+ start();
+}
+function start(){if(!frameId&&!document.hidden&&!stopped&&loaded){frameId=requestAnimationFrame(animate)}}
+function stop(){if(frameId)cancelAnimationFrame(frameId);frameId=0;last=0}
+document.addEventListener('visibilitychange',()=>{document.hidden?stop():start()});
+addEventListener('message',event=>{
+ if(event.origin!==location.origin || event.data?.source!=='lin-portfolio')return;
+ const {type}=event.data;
+ if(type==='HOVER')hovered=!!event.data.active;
+ if(type==='POINTER'){pointer.x=Number(event.data.x)||0;pointer.y=Number(event.data.y)||0}
+ if(type==='PAUSE'){hovered=false;stopped=true;stop()}
+ if(type==='RESUME'){stopped=false;start()}
+ if(type==='CLICK'&&typeof event.data.x==='number'&&typeof event.data.y==='number')pickPart(event.data.x,event.data.y);
+ if(type==='SELECT')selectPart(typeof event.data.part==='string'?event.data.part:null);
+});
+</script></body></html>

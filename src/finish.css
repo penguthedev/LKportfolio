@@ -1,0 +1,71 @@
+/* V5: recruiter-ready About section, accessible F1 anatomy, and intentional empty-image fallbacks */
+.about-layout { grid-template-columns:minmax(0,1.25fr) minmax(320px,.75fr); gap:clamp(32px,7vw,110px); align-items:start; }
+.about-intro { max-width:760px; }
+.about-side { width:100%;max-width:none; margin:0; }
+.about-focus { position:relative; overflow:hidden; padding:clamp(25px,3.3vw,43px); border:1px solid #41303a; border-radius:14px; background:linear-gradient(142deg,#21161d 0%,#13151b 59%,#111219 100%); box-shadow:0 20px 65px #0004; }
+.about-focus::after { content:'';position:absolute;right:-35%;top:-45%;width:82%;aspect-ratio:1;border:1px solid #bb2e4639;border-radius:50%;box-shadow:0 0 0 53px #c8273b0c,0 0 0 110px #c8273b06;pointer-events:none; }
+.about-focus-kicker { color:#ef7187; font-size:10px; font-weight:800; letter-spacing:.18em; }
+.about-focus h3 { position:relative;z-index:1;max-width:280px;font-size:clamp(21px,2.2vw,31px);line-height:1.25;letter-spacing:-.045em;margin:21px 0 28px;color:#f3e9ea; }
+.about-focus-rows { position:relative;z-index:1;display:grid;gap:0; }
+.about-focus-rows > div { display:flex;gap:19px;align-items:start;padding:15px 0;border-top:1px solid #39303a; }
+.about-focus-number { flex:none;color:#ed637e;font-size:12px;letter-spacing:.15em;font-weight:800;padding-top:2px; }
+.about-focus-rows strong { color:#f3e9ea;font-size:15px;font-weight:700; }
+.about-focus-rows p { margin:5px 0 0;color:#bbb1bc;font-size:13px;line-height:1.65; }
+/* The model is still a hero-only background: mouse wheel scroll passes through. */
+.formula-parts-panel { position:absolute;z-index:7;right:clamp(16px,4.6vw,78px);bottom:clamp(68px,11vh,120px);width:min(324px,30vw);padding:19px 20px 17px;background:rgba(13,14,19,.91);backdrop-filter:blur(17px);border:1px solid #69333f;border-radius:12px;box-shadow:0 16px 55px #0009;pointer-events:auto;color:#eee7e8; }
+.formula-parts-eyebrow { display:flex;gap:8px;align-items:center;color:#f66b86;font-size:10px;letter-spacing:.135em;font-weight:800; }
+.formula-parts-detail { min-height:95px; }
+.formula-parts-detail h3 { margin:11px 0 6px;color:#fff4f1;font-size:clamp(17px,1.8vw,23px);letter-spacing:-.035em;line-height:1.2; }
+.formula-parts-detail p { font-size:12px;line-height:1.65;margin:0 0 13px;color:#c7b9c1; }
+.formula-parts-actions { display:flex;gap:8px;align-items:center; }
+.formula-parts-actions select { min-width:0;flex:1;cursor:pointer;border:1px solid #67434c;border-radius:7px;background:#1a1b22;color:#f3e9ec;padding:9px 11px;font:600 12px/1.4 var(--sans); }
+.formula-parts-actions button { flex:none;width:37px;height:37px;display:grid;place-items:center;border:1px solid #67434c;border-radius:7px;background:#201a22;color:#eec9d2;cursor:pointer; }
+.formula-parts-actions button:hover:not(:disabled) { border-color:#f15d7b; }
+.formula-parts-actions button:disabled { opacity:.35;cursor:not-allowed; }
+.formula-parts-actions :is(button,select):focus-visible { outline:3px solid #ff6683;outline-offset:3px; }
+.formula-parts-note { margin:11px 0 0;font-size:10px;line-height:1.5;color:#a99ba8; }
+.formula-background.is-inspecting .formula-three-frame { opacity:.52!important;filter:brightness(.78) saturate(.93)!important; }
+/* Screenshot capture fills the card when present; fallback is clearly artwork, not a fake screenshot. */
+.project-placeholder { background:radial-gradient(ellipse at 65% 40%,#641d303d,transparent 49%),linear-gradient(135deg,#11151a,#1a171f 75%)!important; }
+.placeholder-label { background:rgba(14,16,22,.89);color:#e0c9d0;border:1px solid #623544;font-size:12px; }
+/* Use calm editorial language for third-party UI references. */
+.studies-heading p { max-width:540px; }
+@media(max-width:1150px){
+  .formula-parts-panel { width:min(275px,29vw);padding:14px;right:25px;bottom:76px; }
+  .formula-parts-detail { min-height:80px; }
+}
+@media(max-width:780px){
+  .about-layout { grid-template-columns:1fr;gap:34px; }
+  .about-side { width:100%; }
+  .about-focus { padding:26px; }
+  .formula-parts-panel { right:16px;bottom:22px;width:min(345px,calc(100% - 32px));max-width:calc(100% - 32px);padding:12px 14px; }
+  .formula-parts-detail { min-height:0; }
+  .formula-parts-detail h3 {font-size:17px;margin:7px 0 3px;}
+  .formula-parts-detail p { font-size:11px;margin:0 0 6px;line-height:1.5; }
+  .formula-parts-eyebrow {font-size:9px;}
+  .formula-parts-actions select {font-size:12px;padding:7px;}
+  .formula-parts-actions button {width:32px;height:32px;}
+  .formula-parts-note {display:none;}
+}
+@media(max-width:480px){
+  .formula-parts-panel { bottom:10px; }
+  .hero {padding-bottom:190px!important;}
+  .hero-container {min-height:max(650px,calc(100svh - 160px));}
+}
+@media(prefers-reduced-motion:reduce){.formula-parts-panel{backdrop-filter:none;}}
+
+/* Interaction overlays remain clickable behind the text without blocking page scroll. */
+.hero::before { pointer-events:none!important; }
+.formula-background { z-index:2; }
+.formula-hover-zone { touch-action:pan-y; }
+
+/* Live deployments have priority; the dark local mini-preview remains available below. */
+.project-card-footer .project-live-primary{background:#b71d35;color:#fff;border:1px solid #ed405d;padding:8px 12px;border-radius:7px;font-weight:800}
+.project-card-footer .project-live-primary:hover{background:#d52d48;color:#fff}
+.project-card-footer .project-source{color:#eee0e5}
+.dialog-live-banner{display:flex;gap:18px;align-items:center;justify-content:space-between;flex-wrap:wrap;padding:16px;margin:22px 0;border:1px solid #713340;background:linear-gradient(120deg,#28131c,#17171e);border-radius:12px}
+.dialog-live-banner>div{display:flex;flex-direction:column;gap:5px}
+.dialog-live-banner strong{color:#fff3f2;font-size:16px}
+.dialog-live-banner span{color:#c9b4be;font-size:13px;line-height:1.55}
+.dialog-live-banner .btn{white-space:nowrap}
+@media(max-width:540px){.dialog-live-banner .btn{width:100%;justify-content:center}}

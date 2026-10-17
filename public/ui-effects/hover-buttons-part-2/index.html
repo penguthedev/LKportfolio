@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hover Buttons — Part 2</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;1,9..40,400&family=Fira+Code:wght@400;500&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Ambient background layers -->
+  <div class="ambient ambient--one" aria-hidden="true"></div>
+  <div class="ambient ambient--two" aria-hidden="true"></div>
+  <div class="grid-overlay" aria-hidden="true"></div>
+
+  <main class="showcase">
+    <section class="buttons" aria-label="Button showcase">
+
+      <!-- 1. Matrix Decode -->
+      <article class="button-card" data-effect="cipher" style="--delay: 0.05s">
+        <pre class="code-snippet" aria-hidden="true"><code><span class="tok-sel">.btn-cipher:hover</span> {
+  <span class="tok-prop">animation</span>: <span class="tok-val">matrixDecode</span>;
+}</code></pre>
+        <button type="button" class="btn btn-cipher" data-scramble="Decrypt">
+          <canvas class="btn-cipher__canvas" aria-hidden="true"></canvas>
+          <span class="btn-cipher__text btn__text">Decrypt</span>
+        </button>
+      </article>
+
+      <!-- 2. Flip Card -->
+      <article class="button-card" data-effect="flip" style="--delay: 0.1s">
+        <pre class="code-snippet" aria-hidden="true"><code><span class="tok-sel">.btn-flip:hover</span> {
+  <span class="tok-prop">transform</span>: <span class="tok-val">rotateY(180deg)</span>;
+}</code></pre>
+        <button type="button" class="btn btn-flip">
+          <span class="btn-flip__inner">
+            <span class="btn-flip__face btn-flip__face--front">Launch</span>
+            <span class="btn-flip__face btn-flip__face--back">Go!</span>
+          </span>
+        </button>
+      </article>
+
+      <!-- 3. Confetti Burst -->
+      <article class="button-card" data-effect="confetti" style="--delay: 0.15s">
+        <pre class="code-snippet" aria-hidden="true"><code><span class="tok-sel">.btn-confetti:hover</span> {
+  <span class="tok-prop">transform</span>: <span class="tok-val">scale(1.04)</span>;
+}</code></pre>
+        <button type="button" class="btn btn-confetti">
+          <canvas class="btn-confetti__canvas" aria-hidden="true"></canvas>
+          <span class="btn__text">Party</span>
+        </button>
+      </article>
+
+      <!-- 4. Typewriter -->
+      <article class="button-card" data-effect="typewriter" style="--delay: 0.2s">
+        <pre class="code-snippet" aria-hidden="true"><code><span class="tok-sel">.btn-type:hover</span> {
+  <span class="tok-prop">content</span>: <span class="tok-val">type()</span>;
+}</code></pre>
+        <button type="button" class="btn btn-type" data-type="Type" aria-label="Type">
+          <span class="btn-type__out" aria-hidden="true"></span><span class="btn-type__cursor" aria-hidden="true">|</span>
+        </button>
+      </article>
+
+      <!-- 5. Neon Sign Flicker -->
+      <article class="button-card" data-effect="flicker" style="--delay: 0.25s">
+        <pre class="code-snippet" aria-hidden="true"><code><span class="tok-sel">.btn-flicker:hover</span> {
+  <span class="tok-prop">animation</span>: <span class="tok-val">neonFlicker</span>;
+}</code></pre>
+        <button type="button" class="btn btn-flicker">
+          <span class="btn__text">Flicker</span>
+        </button>
+      </article>
+
+      <!-- 6. Shimmer Sweep -->
+      <article class="button-card" data-effect="shimmer" style="--delay: 0.3s">
+        <pre class="code-snippet" aria-hidden="true"><code><span class="tok-sel">.btn-shimmer:hover</span> {
+  <span class="tok-prop">background</span>: <span class="tok-val">sweep()</span>;
+}</code></pre>
+        <button type="button" class="btn btn-shimmer">
+          <span class="btn-shimmer__shine" aria-hidden="true"></span>
+          <span class="btn__text">Shine</span>
+        </button>
+      </article>
+
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

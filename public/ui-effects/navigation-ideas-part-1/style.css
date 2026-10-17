@@ -1,0 +1,1139 @@
+/* =============================================
+   Navigation Ideas — Part 1 — Global Styles
+   ============================================= */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg-deep: #0e1014;
+  --bg-lift: #1c2130;
+  --text: #e8eaf0;
+  --text-muted: #c8cedc;
+  --accent: #e24b4b;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring: cubic-bezier(0.34, 1.15, 0.4, 1);
+  --demo-max: 920px;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  min-height: 100vh;
+  min-height: 100dvh;
+  font-family: "Outfit", "Segoe UI", system-ui, sans-serif;
+  color: var(--text);
+  background: var(--bg-deep) radial-gradient(1100px 500px at 50% -10%, var(--bg-lift), var(--bg-deep) 70%);
+  overflow-x: hidden;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: 0;
+  background: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* --- Showcase layout --- */
+.showcase {
+  width: 100%;
+  max-width: var(--demo-max);
+  margin: 0 auto;
+  padding: clamp(3rem, 12vh, 6rem) 1.25rem clamp(4rem, 14vh, 8rem);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(5rem, 14vh, 9rem);
+}
+
+.demo {
+  width: 100%;
+}
+
+.demo-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 1.75rem;
+  font-size: 1.28rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--text-muted);
+}
+
+.demo-label-icon {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 11px;
+  color: var(--accent);
+  background: rgba(226, 75, 75, 0.1);
+  border: 1px solid rgba(226, 75, 75, 0.35);
+  flex-shrink: 0;
+}
+
+.demo-label-icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* =============================================
+   1. CHEF KNIFE NAV
+   Blade-shaped bar with shine pass and chop
+   on selection. Handle + rivets are decorative.
+   ============================================= */
+.knife-nav {
+  display: flex;
+  align-items: stretch;
+  height: 78px;
+  filter: drop-shadow(0 10px 18px rgba(0,0,0,0.45));
+  transform-origin: 88% 100%;
+}
+
+.knife-nav.is-chopping {
+  animation: knifeChop 0.42s cubic-bezier(0.22, 0.9, 0.35, 1);
+}
+
+@keyframes knifeChop {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+    filter: drop-shadow(0 10px 18px rgba(0,0,0,0.45));
+  }
+  28% {
+    transform: translate(1px, -4px) rotate(-1.2deg);
+    filter: drop-shadow(0 14px 22px rgba(0,0,0,0.32));
+  }
+  52% {
+    transform: translate(3px, 5px) rotate(1.4deg);
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.6));
+  }
+  68% {
+    transform: translate(2px, 2px) rotate(0.4deg);
+    filter: drop-shadow(0 5px 10px rgba(0,0,0,0.5));
+  }
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+    filter: drop-shadow(0 10px 18px rgba(0,0,0,0.45));
+  }
+}
+
+.knife-blade {
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0;
+  padding: 0 10px 0 14%;
+  background: linear-gradient(175deg, #f4f6f9 0%, #cdd4dd 45%, #aab3c0 60%, #e6eaf0 100%);
+  clip-path: polygon(0 22%, 100% 0, 100% 100%, 16% 100%, 7% 82%, 2% 55%);
+  overflow: hidden;
+}
+.knife-shine {
+  position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(115deg, transparent 30%, rgba(255,255,255,0.75) 48%, transparent 62%);
+  transform: translateX(-110%);
+}
+.knife-nav:hover .knife-shine { animation: shine 2s ease infinite; }
+@keyframes shine {
+  from { transform: translateX(-110%); }
+  to   { transform: translateX(110%); }
+}
+
+.knife-logo {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  margin-right: 2px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.55);
+  border: 1px solid rgba(120,130,150,0.35);
+  color: #6a7384;
+  flex-shrink: 0;
+}
+.knife-logo svg { width: 17px; height: 17px; }
+
+.knife-item {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  min-width: 0;
+  padding: 8px 4px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.64rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #475061;
+  transition: color 0.2s, background 0.2s, transform 0.15s;
+}
+.knife-item svg {
+  width: 18px;
+  height: 18px;
+  stroke: currentColor;
+}
+.knife-item:hover { color: #10131a; background: rgba(255,255,255,0.5); transform: translateY(-1px); }
+.knife-item.is-active {
+  color: #e24b4b;
+  background: transparent;
+}
+.knife-item.is-active::after {
+  content: "";
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  width: 18px;
+  height: 2px;
+  margin-left: -9px;
+  border-radius: 2px;
+  background: #e24b4b;
+}
+
+.knife-bolster {
+  width: 16px;
+  background: linear-gradient(90deg, #9aa3b0, #dfe4ea 50%, #8f98a6);
+}
+
+.knife-handle {
+  width: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  border-radius: 0 34px 34px 0;
+  background:
+    repeating-linear-gradient(100deg, transparent 0 9px, rgba(0,0,0,0.10) 9px 11px),
+    linear-gradient(180deg, #6b4226, #4a2b16 55%, #3a2010);
+}
+.rivet {
+  width: 13px; height: 13px; border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #f2f5f8, #97a1ae 60%, #5c6572);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.6);
+}
+
+/* =============================================
+   2. ESPRESSO MACHINE NAV
+   Gauge needle, LED keys, and steam puff on
+   selection. Brand strip is decorative.
+   ============================================= */
+.brew-nav {
+  border-radius: 20px;
+  padding: 20px 22px 22px;
+  background:
+    repeating-linear-gradient(90deg, rgba(255,255,255,0.025) 0 2px, transparent 2px 4px),
+    linear-gradient(180deg, #3b322c, #241d18 70%, #1a1410);
+  border: 1px solid #4c4038;
+  box-shadow: 0 14px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.08);
+}
+
+.brew-top { display: flex; align-items: center; gap: 20px; margin-bottom: 18px; position: relative; }
+
+.brew-gauge {
+  --angle: -60deg;
+  width: 58px; height: 58px; border-radius: 50%;
+  position: relative; flex-shrink: 0;
+  background:
+    radial-gradient(circle at 50% 50%, #f4ead8 62%, transparent 63%),
+    conic-gradient(#c8b89a 0 25%, #b8452e 25% 33%, #c8b89a 33% 100%);
+  border: 4px solid #57493d;
+  box-shadow: inset 0 2px 6px rgba(0,0,0,0.35), 0 2px 6px rgba(0,0,0,0.4);
+}
+.brew-needle {
+  position: absolute; left: 50%; bottom: 50%;
+  width: 3px; height: 21px;
+  background: #a33222; border-radius: 3px;
+  transform-origin: bottom center;
+  transform: translateX(-50%) rotate(var(--angle));
+  transition: transform 0.7s cubic-bezier(0.34, 1.4, 0.4, 1);
+}
+.brew-pin {
+  position: absolute; left: 50%; top: 50%;
+  width: 8px; height: 8px; border-radius: 50%;
+  background: #3a2c22; transform: translate(-50%, -50%);
+}
+
+.brew-brand { color: #d9c9ac; font-weight: 300; letter-spacing: 0.35em; font-size: 1.05rem; }
+.brew-brand b { font-weight: 800; color: #f0e4c8; }
+.brew-brand small { display: block; letter-spacing: 0.12em; font-size: 0.62rem; color: #8a7a62; margin-top: 3px; }
+
+.brew-vents { margin-left: auto; display: flex; gap: 6px; position: relative; }
+.brew-vents > i { width: 4px; height: 26px; border-radius: 4px; background: #17110d; box-shadow: inset 0 1px 2px #000; }
+
+.brew-steam {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 2px);
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+.brew-steam i {
+  position: absolute; bottom: 0; left: 0;
+  width: 16px; height: 16px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,252,245,0.95) 0%, rgba(235,228,215,0.55) 55%, transparent 100%);
+  filter: blur(2px);
+  opacity: 0;
+}
+.brew-steam.puffing i { animation: puff 1.5s ease-out forwards; }
+.brew-steam.puffing i:nth-child(1) { left: -4px; }
+.brew-steam.puffing i:nth-child(2) { animation-delay: 0.1s; left: 12px; width: 20px; height: 20px; }
+.brew-steam.puffing i:nth-child(3) { animation-delay: 0.22s; left: -14px; width: 22px; height: 22px; }
+.brew-steam.puffing i:nth-child(4) { animation-delay: 0.34s; left: 4px; width: 18px; height: 18px; }
+.brew-steam.puffing i:nth-child(5) { animation-delay: 0.46s; left: -8px; width: 14px; height: 14px; }
+@keyframes puff {
+  0%   { opacity: 1; transform: translateY(0) scale(0.8); filter: blur(2px); }
+  50%  { opacity: 0.75; }
+  100% { opacity: 0; transform: translateY(-58px) scale(3.5); filter: blur(8px); }
+}
+
+.brew-keys { display: flex; gap: 12px; }
+.brew-key {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 8px 14px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #cbb894;
+  background: linear-gradient(180deg, #4a3d33, #2c231c);
+  border: 1px solid #5b4c3f;
+  box-shadow: 0 4px 0 #191310, inset 0 1px 0 rgba(255,255,255,0.1);
+  transition: transform 0.12s, box-shadow 0.12s, color 0.2s;
+}
+.brew-key-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.brew-key-stack svg { width: 20px; height: 20px; }
+.brew-key:hover { color: #f5e8ca; filter: brightness(1.12); }
+.brew-key:active { transform: translateY(3px); box-shadow: 0 1px 0 #191310; }
+.brew-key .led {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: #4d3f33; box-shadow: inset 0 1px 2px rgba(0,0,0,0.6);
+  transition: background 0.25s, box-shadow 0.25s;
+}
+.brew-key.is-active { color: #ffe9b8; border-color: #8a6f4d; background: linear-gradient(180deg, #5c4b3a, #33281e); }
+.brew-key.is-active .led {
+  background: #ffb52e;
+  box-shadow: 0 0 10px 2px rgba(255,181,46,0.75);
+  animation: ledPulse 1.6s ease-in-out infinite;
+}
+@keyframes ledPulse { 50% { box-shadow: 0 0 4px 1px rgba(255,181,46,0.45); } }
+
+/* =============================================
+   3. CAMERA TOP-PLATE NAV
+   Mode dial rotates to the active key; LCD
+   flashes the label. Shutter is a CTA button.
+   ============================================= */
+.cam-nav {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 18px 16px;
+  border-radius: 14px 14px 10px 10px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.07) 0%, transparent 28%),
+    repeating-linear-gradient(90deg, rgba(255,255,255,0.02) 0 1px, transparent 1px 3px),
+    linear-gradient(180deg, #3a3d44 0%, #23262c 55%, #1a1c21 100%);
+  border: 1px solid #4a4e57;
+  border-bottom-color: #12141a;
+  box-shadow:
+    0 16px 32px rgba(0,0,0,0.55),
+    inset 0 1px 0 rgba(255,255,255,0.14),
+    inset 0 -2px 4px rgba(0,0,0,0.35);
+}
+
+.cam-hotshoe {
+  position: absolute;
+  top: -7px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 3px;
+  padding: 3px 10px 2px;
+  border-radius: 3px 3px 0 0;
+  background: linear-gradient(180deg, #5a5e68, #2e323a);
+  box-shadow: 0 -1px 0 rgba(255,255,255,0.12), inset 0 1px 0 rgba(255,255,255,0.1);
+}
+.cam-hotshoe i {
+  width: 8px; height: 5px; border-radius: 1px;
+  background: linear-gradient(180deg, #c8ccd4, #8a909c);
+  box-shadow: inset 0 -1px 1px rgba(0,0,0,0.4);
+}
+
+.cam-dial-wrap {
+  position: relative;
+  flex-shrink: 0;
+  width: 72px; height: 72px;
+}
+.cam-dial {
+  --rot: 0deg;
+  width: 100%; height: 100%;
+  border-radius: 50%;
+  position: relative;
+  background:
+    radial-gradient(circle at 40% 32%, #5a5f6a, #2a2e36 62%, #15181e 100%);
+  border: 3px solid #1c1f26;
+  box-shadow:
+    0 4px 10px rgba(0,0,0,0.5),
+    inset 0 2px 3px rgba(255,255,255,0.12),
+    inset 0 -3px 6px rgba(0,0,0,0.5);
+  transform: rotate(var(--rot));
+  transition: transform 0.55s cubic-bezier(0.34, 1.25, 0.4, 1);
+}
+.cam-tick {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  margin: -7px 0 0 -7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.58rem;
+  font-weight: 700;
+  color: #d4d8e0;
+  letter-spacing: 0.02em;
+  transform:
+    rotate(calc(var(--i) * 90deg))
+    translateY(-26px)
+    rotate(calc(var(--i) * -90deg))
+    rotate(calc(-1 * var(--rot)));
+}
+.cam-dial-face {
+  position: absolute;
+  inset: 18px;
+  border-radius: 50%;
+  background:
+    conic-gradient(from 0deg, #3e434c, #1e2229, #4a505a, #1e2229, #3e434c);
+  box-shadow: inset 0 1px 2px rgba(255,255,255,0.1), 0 1px 3px rgba(0,0,0,0.4);
+}
+.cam-dial-pin {
+  position: absolute;
+  left: 50%; top: 50%;
+  width: 14px; height: 14px; border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #e8ebf0, #8a919c 55%, #4a515c);
+  transform: translate(-50%, -50%);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.6);
+}
+.cam-dial-marker {
+  position: absolute;
+  top: -2px; left: 50%;
+  width: 0; height: 0;
+  margin-left: -5px;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 8px solid #e8a020;
+  filter: drop-shadow(0 0 4px rgba(232,160,32,0.6));
+  z-index: 2;
+}
+
+.cam-lcd {
+  position: relative;
+  flex-shrink: 0;
+  width: 120px;
+  padding: 10px 12px;
+  border-radius: 5px;
+  overflow: hidden;
+  background:
+    linear-gradient(155deg, rgba(255,255,255,0.06) 0%, transparent 42%),
+    radial-gradient(ellipse 90% 70% at 50% 100%, rgba(255,200,120,0.04), transparent 70%),
+    linear-gradient(180deg, #0a0b0d 0%, #050607 100%);
+  border: 1px solid #1e2128;
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,0.04),
+    inset 0 3px 8px rgba(0,0,0,0.85),
+    inset 0 -1px 0 rgba(255,255,255,0.03),
+    0 1px 0 rgba(255,255,255,0.05);
+}
+.cam-lcd::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent 0 1px,
+      rgba(255,255,255,0.018) 1px 2px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent 0 1px,
+      rgba(255,255,255,0.012) 1px 2px
+    );
+  opacity: 0.7;
+}
+.cam-lcd::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    168deg,
+    rgba(255,255,255,0.11) 0%,
+    rgba(255,255,255,0.03) 18%,
+    transparent 42%
+  );
+}
+.cam-screen {
+  display: block;
+  position: relative;
+  z-index: 1;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #f2ebe0;
+  text-shadow: 0 0 1px rgba(255, 245, 230, 0.35);
+  line-height: 1.25;
+  text-align: center;
+  transition: opacity 0.15s, letter-spacing 0.2s;
+}
+.cam-screen.is-flashing { opacity: 0.35; letter-spacing: 0.14em; }
+
+.cam-keys {
+  flex: 1;
+  display: flex;
+  gap: 8px;
+  min-width: 0;
+}
+.cam-key {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 10px 6px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #a8adb8;
+  background: linear-gradient(180deg, #4a4f59, #2a2e36);
+  border: 1px solid #5a606c;
+  box-shadow:
+    0 3px 0 #14171c,
+    inset 0 1px 0 rgba(255,255,255,0.12);
+  transition: transform 0.12s, box-shadow 0.12s, color 0.2s, background 0.2s;
+}
+.cam-key svg {
+  width: 18px;
+  height: 18px;
+  stroke: currentColor;
+}
+.cam-key:hover { color: #eef0f4; filter: brightness(1.1); }
+.cam-key:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 #14171c, inset 0 1px 0 rgba(255,255,255,0.08);
+}
+.cam-key.is-active {
+  color: #fff8e8;
+  background: linear-gradient(180deg, #5a5040, #3a3228);
+  border-color: #8a7048;
+  box-shadow:
+    0 3px 0 #1a1610,
+    inset 0 1px 0 rgba(255,220,150,0.15),
+    0 0 12px rgba(232,160,32,0.2);
+}
+
+.cam-shutter {
+  position: relative;
+  flex-shrink: 0;
+  width: 64px; height: 64px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(160deg, #5a5f6a, #2a2e36 60%, #1a1c21);
+  border: 2px solid #1c1f26;
+  box-shadow:
+    0 4px 10px rgba(0,0,0,0.45),
+    inset 0 2px 3px rgba(255,255,255,0.12);
+  transition: transform 0.12s;
+}
+.cam-shutter-ring {
+  position: absolute;
+  inset: 8px;
+  border-radius: 50%;
+  border: 2px solid #c45a3a;
+  box-shadow: 0 0 8px rgba(196,90,58,0.35), inset 0 0 6px rgba(196,90,58,0.2);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.cam-shutter-core {
+  position: relative;
+  z-index: 1;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #e8eaf0;
+}
+.cam-shutter:hover .cam-shutter-ring {
+  border-color: #e87850;
+  box-shadow: 0 0 14px rgba(232,120,80,0.55), inset 0 0 8px rgba(232,120,80,0.3);
+}
+.cam-shutter:active { transform: scale(0.94); }
+.cam-shutter.is-firing .cam-shutter-ring {
+  border-color: #fff;
+  box-shadow: 0 0 24px 6px rgba(255,255,255,0.7);
+  animation: shutterFlash 0.35s ease-out;
+}
+@keyframes shutterFlash {
+  0% { box-shadow: 0 0 30px 10px rgba(255,255,255,0.9); }
+  100% { box-shadow: 0 0 8px rgba(196,90,58,0.35); }
+}
+
+/* =============================================
+   4. CAST IRON DUMBBELL NAV
+   Collar slider tracks the active item; plates
+   rattle and the bar curls on selection.
+   ============================================= */
+.gym-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(0 12px 20px rgba(0,0,0,0.5));
+  transform-origin: center center;
+}
+.gym-nav.is-curling {
+  animation: gymCurl 0.58s cubic-bezier(0.34, 1.15, 0.4, 1);
+}
+@keyframes gymCurl {
+  0%   { transform: translateY(0) rotate(0deg); }
+  22%  { transform: translateY(6px) rotate(-1.4deg); }
+  40%  { transform: translateY(1px) rotate(0deg); }
+  62%  { transform: translateY(6px) rotate(1.4deg); }
+  80%  { transform: translateY(-2px) rotate(0deg); }
+  100% { transform: translateY(0) rotate(0deg); }
+}
+
+.gym-plates {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+.gym-plates--left { flex-direction: row; }
+.gym-plates--right { flex-direction: row; }
+
+.gym-plate {
+  display: block;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 38% 30%, #4a4e56 0%, #2a2e34 40%, #15181c 72%, #0c0e11 100%);
+  border: 2px solid #1a1c20;
+  box-shadow:
+    inset 0 3px 6px rgba(255,255,255,0.08),
+    inset 0 -4px 10px rgba(0,0,0,0.55),
+    0 2px 4px rgba(0,0,0,0.4);
+  position: relative;
+  transform-origin: center center;
+}
+.gym-nav.is-rattling .gym-plates--left .gym-plate--lg {
+  animation: gymRattleL 0.42s ease-out;
+}
+.gym-nav.is-rattling .gym-plates--left .gym-plate--md {
+  animation: gymRattleL 0.42s ease-out 0.04s;
+}
+.gym-nav.is-rattling .gym-plates--left .gym-plate--sm {
+  animation: gymRattleL 0.42s ease-out 0.08s;
+}
+.gym-nav.is-rattling .gym-plates--right .gym-plate--sm {
+  animation: gymRattleR 0.42s ease-out 0.06s;
+}
+.gym-nav.is-rattling .gym-plates--right .gym-plate--md {
+  animation: gymRattleR 0.42s ease-out 0.1s;
+}
+.gym-nav.is-rattling .gym-plates--right .gym-plate--lg {
+  animation: gymRattleR 0.42s ease-out 0.14s;
+}
+@keyframes gymRattleL {
+  0%, 100% { transform: rotate(0deg); }
+  20% { transform: rotate(-7deg); }
+  40% { transform: rotate(5deg); }
+  60% { transform: rotate(-3deg); }
+  80% { transform: rotate(2deg); }
+}
+@keyframes gymRattleR {
+  0%, 100% { transform: rotate(0deg); }
+  20% { transform: rotate(7deg); }
+  40% { transform: rotate(-5deg); }
+  60% { transform: rotate(3deg); }
+  80% { transform: rotate(-2deg); }
+}
+.gym-plate::after {
+  content: "";
+  position: absolute;
+  inset: 18%;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.06);
+  box-shadow: inset 0 0 8px rgba(0,0,0,0.4);
+}
+.gym-plate--lg { width: 78px; height: 78px; z-index: 1; }
+.gym-plate--md { width: 64px; height: 64px; margin-left: -14px; z-index: 2; }
+.gym-plate--sm { width: 50px; height: 50px; margin-left: -12px; z-index: 3; }
+.gym-plates--right .gym-plate--md { margin-left: 0; margin-right: -14px; }
+.gym-plates--right .gym-plate--sm { margin-left: 0; margin-right: -12px; }
+.gym-plates--right .gym-plate--lg { margin-left: 0; }
+
+.gym-collar-end {
+  width: 14px; height: 28px;
+  border-radius: 3px;
+  background: linear-gradient(90deg, #8a909a, #d0d4da 45%, #6a7078);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.4), 0 1px 3px rgba(0,0,0,0.4);
+  z-index: 4;
+  margin: 0 -2px;
+}
+.gym-plates--left .gym-collar-end { margin-left: -6px; }
+.gym-plates--right .gym-collar-end { margin-right: -6px; }
+
+.gym-bar {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  gap: 4px;
+  min-height: 52px;
+  padding: 4px 10px;
+  margin: 0 -4px;
+  background:
+    linear-gradient(180deg, #9aa1ac 0%, #6a717c 35%, #4a515a 55%, #7a828c 100%);
+  border-radius: 3px;
+  box-shadow:
+    inset 0 2px 3px rgba(255,255,255,0.35),
+    inset 0 -2px 4px rgba(0,0,0,0.35);
+  overflow: visible;
+  z-index: 5;
+}
+.gym-knurl {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(
+      45deg,
+      transparent 0 3px,
+      rgba(0,0,0,0.12) 3px 4px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      transparent 0 3px,
+      rgba(0,0,0,0.1) 3px 4px
+    );
+  opacity: 0.85;
+  border-radius: inherit;
+}
+
+.gym-slider {
+  position: absolute;
+  top: 4px;
+  left: 12.5%;
+  width: 30px;
+  height: 28px;
+  transform: translateX(-50%);
+  border-radius: 4px;
+  background:
+    linear-gradient(90deg, #6a7078, #c8ccd2 40%, #e8eaee 50%, #a0a6ae 70%, #5a6068);
+  border: 1px solid #3a3e44;
+  box-shadow:
+    0 2px 6px rgba(0,0,0,0.45),
+    inset 0 1px 0 rgba(255,255,255,0.5);
+  transition: left 0.4s cubic-bezier(0.34, 1.2, 0.4, 1);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.gym-item {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 7px 6px 8px;
+  font-weight: 700;
+  font-size: 0.65rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #2a2e36;
+  text-shadow: 0 1px 0 rgba(255,255,255,0.25);
+  transition: color 0.2s, transform 0.15s;
+}
+.gym-item svg {
+  position: relative;
+  z-index: 1;
+  width: 18px;
+  height: 18px;
+  stroke: currentColor;
+}
+.gym-item:hover {
+  color: #0e1014;
+  transform: translateY(-1px);
+}
+.gym-item.is-active {
+  color: #e24b4b;
+  text-shadow: none;
+}
+.gym-item.is-active::after {
+  content: "";
+  position: absolute;
+  bottom: 5px;
+  left: 50%;
+  width: 16px;
+  height: 2px;
+  margin-left: -8px;
+  border-radius: 2px;
+  background: #e24b4b;
+  z-index: 2;
+}
+
+/* =============================================
+   5. BACK-BAR TAP ROW
+   Pull handles tip toward the viewer when active.
+   Clip labels fill with canvas beer liquid via JS.
+   ============================================= */
+.bar-nav {
+  position: relative;
+  filter: drop-shadow(0 16px 28px rgba(0,0,0,0.55));
+}
+
+.bar-taps {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: flex-end;
+  gap: 6px;
+  padding: 0 28px;
+  margin-bottom: -18px;
+}
+
+.bar-tap {
+  --pull: -18deg; /* negative = tipped back; positive = pulled toward viewer */
+  position: relative;
+  flex: 1;
+  max-width: 130px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 0 18px;
+  color: #e8dcc8;
+  perspective: 280px;
+  perspective-origin: 50% 100%;
+}
+.bar-tap:hover { --pull: -8deg; }
+.bar-tap:hover .bar-clip {
+  border-color: rgba(232, 200, 140, 0.55);
+  color: #fff6e4;
+}
+.bar-tap:active { --pull: 26deg; }
+.bar-tap.is-active { --pull: 30deg; }
+.bar-tap.is-active .bar-knob {
+  background: radial-gradient(circle at 38% 32%, #e85848, #b02820 55%, #5a1008);
+  box-shadow: 0 3px 10px rgba(200,50,40,0.5);
+}
+.bar-tap.is-active .bar-clip {
+  color: #2a1608;
+  border-color: #c49a4a;
+  box-shadow: 0 3px 10px rgba(180,100,20,0.35), inset 0 1px 0 rgba(255,240,200,0.15);
+}
+.bar-tap.is-active .bar-clip__content {
+  text-shadow: 0 1px 0 rgba(255,245,220,0.35);
+}
+
+/* Rigid lever: arm + knob move together; knob billboards so it stays round */
+.bar-handle {
+  position: relative;
+  width: 28px;
+  height: 56px;
+  transform-origin: 50% 100%;
+  transform-style: preserve-3d;
+  transform: rotateX(var(--pull));
+  transition: transform 0.32s cubic-bezier(0.34, 1.15, 0.4, 1);
+  margin-bottom: -2px;
+  z-index: 3;
+}
+.bar-arm {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 8px;
+  height: calc(100% - 18px);
+  margin-left: -4px;
+  border-radius: 4px;
+  background: linear-gradient(180deg, #8a9098 0%, #6a7078 40%, #4a5058 100%);
+  box-shadow:
+    0 2px 4px rgba(0,0,0,0.4),
+    inset 1px 0 0 rgba(255,255,255,0.2),
+    inset -1px 0 0 rgba(0,0,0,0.25);
+  z-index: 1;
+}
+.bar-knob {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 24px;
+  height: 24px;
+  margin-left: -12px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 38% 32%, #d4a070, #8a4828 55%, #3e1c0e);
+  border: 1px solid rgba(0,0,0,0.28);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.45);
+  z-index: 2;
+  /* Cancel parent rotateX so the ball stays circular and seated on the arm */
+  transform: rotateX(calc(-1 * var(--pull)));
+  transform-origin: center center;
+  transition: transform 0.32s cubic-bezier(0.34, 1.15, 0.4, 1), background 0.22s, box-shadow 0.22s;
+}
+
+.bar-column {
+  position: relative;
+  width: 22px;
+  height: 72px;
+  border-radius: 11px 11px 4px 4px;
+  background:
+    linear-gradient(90deg, #4a5058, #b8bec6 32%, #eef0f4 48%, #9aa2ac 68%, #2e3238);
+  box-shadow:
+    0 4px 10px rgba(0,0,0,0.45),
+    inset 0 1px 0 rgba(255,255,255,0.5);
+  z-index: 1;
+}
+.bar-collar {
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  width: 28px;
+  height: 12px;
+  margin-left: -14px;
+  border-radius: 6px;
+  background: linear-gradient(180deg, #d8dde4, #7a828c 55%, #4a5058);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.45);
+}
+
+.bar-clip {
+  position: absolute;
+  top: 62px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  min-width: 54px;
+  min-height: 44px;
+  padding: 6px 8px 5px;
+  border-radius: 4px;
+  overflow: hidden;
+  font-weight: 700;
+  font-size: 0.58rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #f0e4d0;
+  background: linear-gradient(180deg, #3a2a1c, #24180e);
+  border: 1px solid #6a4e32;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,220,160,0.12);
+  transition: color 0.22s, border-color 0.22s, box-shadow 0.22s;
+}
+.bar-clip::before {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  width: 10px;
+  height: 6px;
+  margin-left: -5px;
+  background: linear-gradient(180deg, #8a9098, #4a5058);
+  border-radius: 2px 2px 0 0;
+  box-shadow: 0 -1px 2px rgba(0,0,0,0.3);
+  z-index: 3;
+}
+.bar-clip__liquid {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  display: block;
+}
+.bar-clip__content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  transition: text-shadow 0.25s;
+}
+.bar-clip__content svg {
+  width: 15px;
+  height: 15px;
+  stroke: currentColor;
+}
+
+.bar-counter {
+  position: relative;
+  z-index: 1;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid #6a4528;
+  box-shadow: inset 0 1px 0 rgba(255,220,160,0.1);
+}
+.bar-top {
+  position: relative;
+  height: 28px;
+  background:
+    linear-gradient(180deg, #8a5a32 0%, #5c3618 55%, #3e2410 100%);
+  box-shadow: inset 0 2px 0 rgba(255,210,150,0.14);
+}
+.bar-tray {
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  bottom: 4px;
+  height: 8px;
+  border-radius: 3px;
+  background:
+    linear-gradient(180deg, #6a7078, #3a3e44);
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.5), 0 1px 0 rgba(255,255,255,0.08);
+}
+.bar-tray::before {
+  content: "";
+  position: absolute;
+  inset: 2px 8%;
+  border-radius: 2px;
+  background: repeating-linear-gradient(90deg, #2a2e34 0 6px, #4a5058 6px 7px);
+  opacity: 0.7;
+}
+.bar-front {
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    repeating-linear-gradient(90deg, transparent 0 22px, rgba(0,0,0,0.1) 22px 23px),
+    linear-gradient(180deg, #5a3418 0%, #3a2010 50%, #241408 100%);
+  box-shadow: inset 0 3px 8px rgba(0,0,0,0.35);
+}
+.bar-brand {
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.4em;
+  color: rgba(232, 200, 150, 0.38);
+}
+
+/* --- Responsive --- */
+@media (max-width: 720px) {
+  .showcase {
+    padding-inline: 0.85rem;
+    gap: clamp(4rem, 12vh, 6rem);
+  }
+
+  .knife-nav { height: 70px; }
+  .knife-blade { padding-left: 12%; }
+  .knife-handle { width: 72px; }
+  .knife-logo { width: 28px; height: 28px; }
+  .knife-logo svg { width: 14px; height: 14px; }
+  .knife-item { padding: 6px 2px; font-size: 0.5rem; }
+  .knife-item svg { width: 14px; height: 14px; }
+
+  .brew-keys { flex-wrap: wrap; }
+  .brew-key { flex: 1 1 40%; }
+  .brew-brand { font-size: 0.85rem; }
+
+  .cam-nav { flex-wrap: wrap; gap: 12px; padding: 20px 14px 14px; }
+  .cam-dial-wrap { width: 60px; height: 60px; }
+  .cam-tick {
+    margin: -6px 0 0 -6px;
+    width: 12px;
+    height: 12px;
+    font-size: 0.5rem;
+    transform:
+      rotate(calc(var(--i) * 90deg))
+      translateY(-21px)
+      rotate(calc(var(--i) * -90deg))
+      rotate(calc(-1 * var(--rot)));
+  }
+  .cam-dial-face { inset: 15px; }
+  .cam-lcd { width: 100%; order: 3; }
+  .cam-keys { flex: 1 1 100%; order: 4; }
+  .cam-key { font-size: 0.6rem; padding: 9px 4px; }
+  .cam-shutter { width: 56px; height: 56px; }
+
+  .gym-plate--lg { width: 56px; height: 56px; }
+  .gym-plate--md { width: 46px; height: 46px; margin-left: -10px; }
+  .gym-plate--sm { width: 36px; height: 36px; margin-left: -8px; }
+  .gym-plates--right .gym-plate--md { margin-right: -10px; }
+  .gym-plates--right .gym-plate--sm { margin-right: -8px; }
+  .gym-collar-end { width: 10px; height: 22px; }
+  .gym-item { font-size: 0.55rem; padding: 6px 2px 7px; }
+  .gym-item svg { width: 15px; height: 15px; }
+  .gym-slider { width: 24px; height: 24px; top: 3px; }
+  .gym-bar { min-height: 46px; }
+
+  .bar-taps { gap: 2px; padding: 0 10px; margin-bottom: -14px; }
+  .bar-handle { height: 46px; }
+  .bar-knob { width: 20px; height: 20px; margin-left: -10px; top: -6px; }
+  .bar-column { width: 18px; height: 58px; }
+  .bar-collar { width: 24px; margin-left: -12px; }
+  .bar-clip { min-width: 44px; min-height: 40px; padding: 5px 5px 4px; font-size: 0.48rem; top: 52px; }
+  .bar-clip__content svg { width: 13px; height: 13px; }
+  .bar-front { height: 34px; }
+  .bar-brand { letter-spacing: 0.2em; font-size: 0.5rem; }
+}
+
+/* --- Reduced motion --- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.2s !important;
+  }
+
+  .knife-shine,
+  .brew-steam i,
+  .gym-nav.is-curling,
+  .gym-nav.is-rattling .gym-plate {
+    animation: none !important;
+  }
+}

@@ -1,0 +1,220 @@
+/* V8 — precise tyre presentation and motorsport-inspired neon-red accents.
+   Keep readable, dark interfaces and the green internship status untouched. */
+:root {
+  --neon-red: #ff2348;
+  --neon-hot: #ff4768;
+  --neon-deep: #b9092d;
+  --neon-halo: rgba(255, 35, 72, .20);
+  --blue: var(--neon-red);
+  --blue-hover: var(--neon-hot);
+}
+::selection { background: #a91336; color: #fff; }
+a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible {
+  outline: 2px solid #ff6280;
+  outline-offset: 3px;
+}
+
+/* Same perfectly-square, re-centered tyre image for the header and back-to-top. */
+.wordmark.home-wheel-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  line-height: 1;
+}
+.wheel-mark,
+.wordmark .wheel-mark,
+.back-to-top .wheel-mark {
+  box-sizing: border-box;
+  display: grid;
+  place-items: center;
+  flex: none;
+  aspect-ratio: 1 / 1;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #08090d;
+  transform-origin: 50% 50%;
+}
+.wordmark .wheel-mark {
+  width: 39px;
+  height: 39px;
+  min-width: 39px;
+  max-width: 39px;
+  box-shadow: 0 0 0 1px rgba(255, 60, 91, .8), 0 0 12px rgba(255, 38, 73, .33);
+}
+.wheel-mark::before,
+.wordmark .wheel-mark::before,
+.back-to-top .wheel-mark::before { content: none; }
+.wheel-mark img,
+.wordmark .wheel-mark img,
+.back-to-top .wheel-mark img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1 / 1;
+  padding: 0;
+  margin: 0;
+  object-fit: contain;
+  object-position: center;
+  border-radius: 50%;
+  transform-origin: 50% 50%;
+}
+.back-to-top {
+  box-sizing: border-box;
+  width: 64px;
+  height: 64px;
+  padding: 3px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  box-shadow: none !important;
+}
+.back-to-top .wheel-mark {
+  width: 56px;
+  height: 56px;
+  min-width: 56px;
+  max-width: 56px;
+  box-shadow: 0 0 0 2px rgba(255, 67, 98, .75), 0 0 18px rgba(255, 32, 71, .37), 0 12px 24px #0009;
+}
+.back-to-top .wheel-mark img {
+  transform: rotate(var(--scroll-wheel-angle, 0deg));
+  transition: transform 90ms linear;
+}
+.wordmark:hover .wheel-mark,
+.wordmark:focus-visible .wheel-mark,
+.back-to-top:hover .wheel-mark,
+.back-to-top:focus-visible .wheel-mark {
+  box-shadow: 0 0 0 2px #ff6480, 0 0 15px rgba(255, 34, 72, .85), 0 0 35px rgba(255, 31, 67, .33);
+}
+
+/* Radiant accents on a dark, legible foreground rather than broad red surfaces. */
+.scroll-progress {
+  background: linear-gradient(90deg, #a00929 0%, #ff2348 55%, #ff8398 100%);
+  box-shadow: 0 0 11px rgba(255, 35, 72, .82), 0 0 21px rgba(255, 35, 72, .4);
+}
+.site-header.is-scrolled {
+  background: rgba(7, 8, 12, .95);
+  border-bottom: 1px solid rgba(255, 64, 96, .27);
+  box-shadow: 0 9px 28px #0009, 0 1px 16px rgba(255, 35, 72, .08);
+}
+.wordmark-dot,
+.name-period {
+  color: var(--neon-hot);
+  text-shadow: 0 0 9px rgba(255, 51, 83, .66), 0 0 29px rgba(255, 35, 72, .32);
+}
+.primary-nav a.is-active,
+.primary-nav a:hover { color: #ff718a; text-shadow: 0 0 12px rgba(255, 44, 77, .38); }
+.primary-nav a:not(.mobile-nav-email)::after {
+  background: var(--neon-hot);
+  box-shadow: 0 0 8px var(--neon-hot), 0 0 17px rgba(255, 47, 83, .38);
+}
+.hero,
+.formula-background { background: #06070b !important; }
+.formula-background::before {
+  opacity: .62;
+  background: radial-gradient(ellipse at 78% 44%, rgba(255, 23, 62, .29), rgba(138, 12, 34, .10) 29%, transparent 66%);
+}
+.formula-background::after { opacity: .31; }
+.hero-eyebrow,
+.scroll-cue { color: #ff6d85; text-shadow: 0 0 13px rgba(255, 37, 76, .26); }
+.eyebrow-dash { background: var(--neon-hot); box-shadow: 0 0 10px rgba(255, 35, 72, .6); }
+.hero-title { text-shadow: 0 6px 24px #000e, 0 0 35px rgba(255, 34, 69, .035); }
+.formula-technical-lines { opacity: .54; }
+
+.btn-primary {
+  border-color: #ff5470;
+  background: linear-gradient(120deg, #c91036, #f52248 65%, #df183c);
+  color: #fff;
+  box-shadow: 0 0 0 1px rgba(255, 58, 91, .2), 0 0 18px rgba(255, 28, 67, .3), 0 10px 31px rgba(206, 8, 44, .25);
+}
+.btn-primary:hover,
+.btn-primary:focus-visible {
+  border-color: #ff8197;
+  background: linear-gradient(120deg, #eb163c, #ff3558);
+  box-shadow: 0 0 0 1px rgba(255, 90, 116, .36), 0 0 21px rgba(255, 35, 72, .51), 0 0 44px rgba(255, 25, 66, .19);
+}
+.btn-outline { border-color: rgba(255, 70, 99, .5); }
+.btn-outline:hover,
+.btn-outline:focus-visible {
+  border-color: #ff5773;
+  background: rgba(160, 17, 44, .22);
+  box-shadow: inset 0 0 18px rgba(255, 39, 75, .05), 0 0 15px rgba(255, 32, 72, .20);
+}
+.btn-text:hover,
+.text-link:hover,
+.footer-links a:hover { color: #ff7790; text-shadow: 0 0 11px rgba(255, 46, 80, .42); }
+
+/* Bring a consistent glow to interactive surfaces, not whole paragraphs. */
+.section-number,
+.display-heading em,
+.studies-heading em { color: #ff536f; }
+.section-label-line { background: linear-gradient(90deg, rgba(255, 50, 84, .75), rgba(255, 50, 84, .04)); }
+.timeline-node { border-color: var(--neon-hot); box-shadow: 0 0 0 5px rgba(255, 39, 73, .11), 0 0 17px rgba(255, 37, 72, .28); }
+.skill-card, .project-card, .study-card, .about-focus { transition: border-color .25s ease, box-shadow .25s ease, transform .25s ease; }
+.skill-card:hover,
+.project-card:hover,
+.study-card:hover,
+.about-focus:hover {
+  border-color: rgba(255, 67, 101, .64);
+  box-shadow: 0 0 0 1px rgba(255, 44, 79, .09), 0 0 30px rgba(255, 31, 71, .16), 0 20px 46px #0006;
+}
+.project-card:hover { transform: translateY(-4px); }
+.project-card .project-demo,
+.project-card .project-live { color: #ff7790; }
+.project-demo:hover,
+.project-source:hover,
+.project-live:hover { color: #ffa0b1; text-shadow: 0 0 13px rgba(255, 40, 74, .31); }
+.filter-button.is-current {
+  background: rgba(154, 15, 43, .35);
+  color: #ffecf0;
+  border-color: rgba(255, 73, 103, .8);
+  box-shadow: 0 0 16px rgba(255, 34, 71, .18);
+}
+.project-search:focus-within { border-color: #ff5875; box-shadow: 0 0 0 2px rgba(255, 46, 81, .16), 0 0 13px rgba(255, 37, 74, .15); }
+.more-projects:hover { border-color: rgba(255, 66, 96, .75); box-shadow: 0 0 24px rgba(255, 28, 66, .12); }
+.formula-parts-panel {
+  border-color: rgba(255, 66, 100, .50);
+  box-shadow: 0 0 1px rgba(255, 70, 100, .75), 0 0 21px rgba(255, 34, 72, .12), 0 22px 55px #000b;
+}
+.formula-parts-actions select:hover,
+.formula-parts-actions button:hover:not(:disabled) { border-color: #ff6c85; box-shadow: 0 0 13px rgba(255, 35, 72, .2); }
+.formula-parts-eyebrow { color: #ff8298; }
+.contact-panel { border-color: rgba(255, 62, 95, .40); box-shadow: 0 0 40px rgba(255, 27, 64, .09); }
+.contact-orbit { border-color: rgba(255, 50, 83, .25); box-shadow: 0 0 0 72px rgba(255, 28, 65, .045), 0 0 0 142px rgba(255, 28, 65, .025); }
+.contact-content h2 em { color: #ff728a; text-shadow: 0 0 18px rgba(255, 38, 76, .20); }
+
+/* Preserve green available-for-internship semantics. */
+.availability-dot,
+.formula-light { background: #2eea8f !important; box-shadow: 0 0 0 4px rgba(46, 234, 143, .12), 0 0 12px rgba(46, 234, 143, .36) !important; }
+.internship-status { color: #59f2a6; }
+@media (max-width: 780px) {
+  .wordmark .wheel-mark { width: 35px; height: 35px; min-width: 35px; max-width: 35px; }
+  .back-to-top { width: 58px; height: 58px; padding: 2px; }
+  .back-to-top .wheel-mark { width: 53px; height: 53px; min-width: 53px; max-width: 53px; }
+  .formula-background::before { opacity: .32; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .back-to-top .wheel-mark img { transition: none; transform: none; }
+  .racing-home .wheel-mark { animation: none !important; }
+  .project-card:hover, .skill-card:hover { transform: none; }
+}
+
+/* Live deployments remain the strongest project action. */
+.project-card-footer .project-live-primary,
+.project-dialog .project-live-primary {
+  color: #fff;
+  border-color: #ff5671;
+  background: linear-gradient(135deg, #bf1032, #eb2248);
+  box-shadow: 0 0 15px rgba(255, 31, 70, .22);
+}
+.project-card-footer .project-live-primary:hover,
+.project-card-footer .project-live-primary:focus-visible,
+.project-dialog .project-live-primary:hover {
+  color: #fff;
+  border-color: #ff8c9e;
+  background: linear-gradient(135deg, #e31c41, #ff3a5d);
+  box-shadow: 0 0 21px rgba(255, 31, 70, .45);
+}

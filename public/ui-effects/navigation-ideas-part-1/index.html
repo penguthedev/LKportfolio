@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Navigation Ideas — Part 1</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="showcase">
+
+    <!-- 1. Chef knife nav -->
+    <section class="demo" id="chef-demo">
+      <h2 class="demo-label">
+        <span class="demo-label-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3c1.2 0 2.2.7 2.7 1.7.3.6.3 1.3.1 1.9L12 14l-2.8-6.4c-.2-.6-.2-1.3.1-1.9C9.8 3.7 10.8 3 12 3z"/>
+            <path d="M8.5 8.5c-1.5.8-2.5 2.4-2.5 4.2 0 2.8 2.7 5.3 6 5.3s6-2.5 6-5.3c0-1.8-1-3.4-2.5-4.2"/>
+            <path d="M10 18v2M14 18v2M9 22h6"/>
+          </svg>
+        </span>
+        Chef / Culinary
+      </h2>
+
+      <nav class="knife-nav" aria-label="Culinary menu">
+        <div class="knife-blade">
+          <span class="knife-shine" aria-hidden="true"></span>
+          <span class="knife-logo" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 3c1.2 0 2.2.7 2.7 1.7.3.6.3 1.3.1 1.9L12 14l-2.8-6.4c-.2-.6-.2-1.3.1-1.9C9.8 3.7 10.8 3 12 3z"/>
+              <path d="M8.5 8.5c-1.5.8-2.5 2.4-2.5 4.2 0 2.8 2.7 5.3 6 5.3s6-2.5 6-5.3c0-1.8-1-3.4-2.5-4.2"/>
+            </svg>
+          </span>
+          <button type="button" class="knife-item is-active">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5"/><path d="M5 10v9h14v-9"/><path d="M10 19v-5h4v5"/></svg>
+            <span>Home</span>
+          </button>
+          <button type="button" class="knife-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="16" rx="7" ry="2.5"/><path d="M5 16V11c0-2 3-4 7-4s7 2 7 4v5"/><path d="M12 7V4"/></svg>
+            <span>Menu</span>
+          </button>
+          <button type="button" class="knife-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3v10a2.5 2.5 0 1 0 5 0V3"/><path d="M10.5 3v6"/><path d="M16 3v18"/><path d="M16 8c2 0 3-1.5 3-3.5S18 3 16 3"/></svg>
+            <span>Recipes</span>
+          </button>
+          <button type="button" class="knife-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21c4-3.5 7-7 7-11a7 7 0 1 0-14 0c0 4 3 7.5 7 11z"/><circle cx="12" cy="10" r="2.2"/></svg>
+            <span>About</span>
+          </button>
+          <button type="button" class="knife-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M8 3v4M16 3v4M4 11h16"/><path d="M9 15l2 2 4-4"/></svg>
+            <span>Events</span>
+          </button>
+          <button type="button" class="knife-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="m3 8 9 6 9-6"/></svg>
+            <span>Contact</span>
+          </button>
+        </div>
+        <div class="knife-bolster" aria-hidden="true"></div>
+        <div class="knife-handle" aria-hidden="true">
+          <span class="rivet"></span><span class="rivet"></span><span class="rivet"></span>
+        </div>
+      </nav>
+    </section>
+
+    <!-- 2. Espresso machine nav -->
+    <section class="demo" id="brew-demo">
+      <h2 class="demo-label">
+        <span class="demo-label-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 9h11v7a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4V9z"/>
+            <path d="M16 11h2.5a2.5 2.5 0 0 1 0 5H16"/>
+            <path d="M8 3v3M12 2v4M15 3.5V6"/>
+          </svg>
+        </span>
+        Café / Coffee
+      </h2>
+
+      <nav class="brew-nav" aria-label="Coffee shop website navigation">
+        <div class="brew-top">
+          <div class="brew-gauge" aria-hidden="true">
+            <div class="brew-needle"></div>
+            <i class="brew-pin"></i>
+          </div>
+          <div class="brew-brand">DAILY<b>GRIND</b><small>specialty coffee · est. 2019</small></div>
+          <div class="brew-vents" aria-hidden="true">
+            <i></i><i></i><i></i><i></i>
+            <div class="brew-steam"><i></i><i></i><i></i><i></i><i></i></div>
+          </div>
+        </div>
+        <div class="brew-keys">
+          <button type="button" class="brew-key is-active">
+            <span class="led" aria-hidden="true"></span>
+            <span class="brew-key-stack">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5"/><path d="M5 10v9h14v-9"/><path d="M10 19v-5h4v5"/></svg>
+              <span>Home</span>
+            </span>
+          </button>
+          <button type="button" class="brew-key">
+            <span class="led" aria-hidden="true"></span>
+            <span class="brew-key-stack">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 9h11v7a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4V9z"/><path d="M16 11h2.5a2.5 2.5 0 0 1 0 5H16"/><path d="M8 3v3M12 2v4"/></svg>
+              <span>Menu</span>
+            </span>
+          </button>
+          <button type="button" class="brew-key">
+            <span class="led" aria-hidden="true"></span>
+            <span class="brew-key-stack">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M3 4h2l2.4 11.2a1.5 1.5 0 0 0 1.5 1.2h8.4a1.5 1.5 0 0 0 1.5-1.2L21 8H7"/></svg>
+              <span>Order</span>
+            </span>
+          </button>
+          <button type="button" class="brew-key">
+            <span class="led" aria-hidden="true"></span>
+            <span class="brew-key-stack">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-4.5 7-11a7 7 0 1 0-14 0c0 6.5 7 11 7 11z"/><circle cx="12" cy="10" r="2.2"/></svg>
+              <span>Visit</span>
+            </span>
+          </button>
+        </div>
+      </nav>
+    </section>
+
+    <!-- 3. Camera top-plate nav -->
+    <section class="demo" id="cam-demo">
+      <h2 class="demo-label">
+        <span class="demo-label-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 8h3l1.5-2h7L17 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/>
+            <circle cx="12" cy="13" r="3.5"/>
+          </svg>
+        </span>
+        Cinematographer / Filmmaker
+      </h2>
+
+      <nav class="cam-nav" aria-label="Photography studio navigation">
+        <div class="cam-hotshoe" aria-hidden="true"><i></i><i></i><i></i></div>
+
+        <div class="cam-dial-wrap" aria-hidden="true">
+          <div class="cam-dial">
+            <span class="cam-tick" style="--i:0">P</span>
+            <span class="cam-tick" style="--i:1">S</span>
+            <span class="cam-tick" style="--i:2">G</span>
+            <span class="cam-tick" style="--i:3">A</span>
+            <div class="cam-dial-face"></div>
+            <div class="cam-dial-pin"></div>
+          </div>
+          <div class="cam-dial-marker"></div>
+        </div>
+
+        <div class="cam-lcd">
+          <span class="cam-screen" id="cam-screen">Portfolio</span>
+        </div>
+
+        <div class="cam-keys">
+          <button type="button" class="cam-key is-active" data-label="PORTFOLIO">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l1.5-2h7L17 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.2"/></svg>
+            <span>Portfolio</span>
+          </button>
+          <button type="button" class="cam-key" data-label="SESSIONS">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M8 3v4M16 3v4M4 11h16"/></svg>
+            <span>Sessions</span>
+          </button>
+          <button type="button" class="cam-key" data-label="GALLERY">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2"/><path d="m21 16-4.5-4.5L12 16l-2.5-2.5L3 17"/></svg>
+            <span>Gallery</span>
+          </button>
+          <button type="button" class="cam-key" data-label="ABOUT">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3.2"/><path d="M5.5 19.5c1.2-3.2 3.5-4.8 6.5-4.8s5.3 1.6 6.5 4.8"/></svg>
+            <span>About</span>
+          </button>
+        </div>
+
+        <button type="button" class="cam-shutter" aria-label="Book a session">
+          <span class="cam-shutter-ring" aria-hidden="true"></span>
+          <span class="cam-shutter-core">Book</span>
+        </button>
+      </nav>
+    </section>
+
+    <!-- 4. Dumbbell nav -->
+    <section class="demo" id="gym-demo">
+      <h2 class="demo-label">
+        <span class="demo-label-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 9v6M18 9v6M3 10.5v3M21 10.5v3M6 12h12M8.5 8v8M15.5 8v8"/>
+          </svg>
+        </span>
+        Fitness / Gym
+      </h2>
+
+      <nav class="gym-nav" aria-label="Fitness gym navigation">
+        <div class="gym-plates gym-plates--left" aria-hidden="true">
+          <span class="gym-plate gym-plate--lg"></span>
+          <span class="gym-plate gym-plate--md"></span>
+          <span class="gym-plate gym-plate--sm"></span>
+          <span class="gym-collar-end"></span>
+        </div>
+
+        <div class="gym-bar">
+          <span class="gym-knurl" aria-hidden="true"></span>
+          <span class="gym-slider" id="gym-slider" aria-hidden="true"></span>
+          <button type="button" class="gym-item is-active">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5"/><path d="M5 10v9h14v-9"/><path d="M10 19v-5h4v5"/></svg>
+            <span>Home</span>
+          </button>
+          <button type="button" class="gym-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 18V8l4 3 4-5 4 5 4-3v10"/><path d="M4 18h16"/></svg>
+            <span>Classes</span>
+          </button>
+          <button type="button" class="gym-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3.2"/><path d="M5.5 19.5c1.2-3.2 3.5-4.8 6.5-4.8s5.3 1.6 6.5 4.8"/></svg>
+            <span>Trainers</span>
+          </button>
+          <button type="button" class="gym-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18"/><path d="M7 8h7a3 3 0 0 1 0 6H9a3 3 0 0 0 0 6h8"/></svg>
+            <span>Join</span>
+          </button>
+        </div>
+
+        <div class="gym-plates gym-plates--right" aria-hidden="true">
+          <span class="gym-collar-end"></span>
+          <span class="gym-plate gym-plate--sm"></span>
+          <span class="gym-plate gym-plate--md"></span>
+          <span class="gym-plate gym-plate--lg"></span>
+        </div>
+      </nav>
+    </section>
+
+    <!-- 5. Back-bar tap row -->
+    <section class="demo" id="bar-demo">
+      <h2 class="demo-label">
+        <span class="demo-label-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M8 21V10"/>
+            <path d="M8 10c0-2.5 2.2-4 4.5-4H15"/>
+            <path d="M15 6v4"/>
+            <circle cx="15" cy="4.2" r="1.6"/>
+            <path d="M4 21h16"/>
+          </svg>
+        </span>
+        Bar / Mixology
+      </h2>
+
+      <nav class="bar-nav" aria-label="Cocktail bar navigation">
+        <div class="bar-taps">
+          <button type="button" class="bar-tap is-active">
+            <span class="bar-handle" aria-hidden="true">
+              <i class="bar-knob"></i>
+              <i class="bar-arm"></i>
+            </span>
+            <span class="bar-column" aria-hidden="true">
+              <i class="bar-collar"></i>
+            </span>
+            <span class="bar-clip">
+              <canvas class="bar-clip__liquid" aria-hidden="true"></canvas>
+              <span class="bar-clip__content">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5"/><path d="M5 10v9h14v-9"/><path d="M10 19v-5h4v5"/></svg>
+                <span>Home</span>
+              </span>
+            </span>
+          </button>
+
+          <button type="button" class="bar-tap">
+            <span class="bar-handle" aria-hidden="true">
+              <i class="bar-knob"></i>
+              <i class="bar-arm"></i>
+            </span>
+            <span class="bar-column" aria-hidden="true">
+              <i class="bar-collar"></i>
+            </span>
+            <span class="bar-clip">
+              <canvas class="bar-clip__liquid" aria-hidden="true"></canvas>
+              <span class="bar-clip__content">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 4h8v3c0 2.2-1.8 4-4 4s-4-1.8-4-4V4z"/><path d="M12 11v9"/><path d="M9 20h6"/><path d="M6 7h12"/></svg>
+                <span>Menu</span>
+              </span>
+            </span>
+          </button>
+
+          <button type="button" class="bar-tap">
+            <span class="bar-handle" aria-hidden="true">
+              <i class="bar-knob"></i>
+              <i class="bar-arm"></i>
+            </span>
+            <span class="bar-column" aria-hidden="true">
+              <i class="bar-collar"></i>
+            </span>
+            <span class="bar-clip">
+              <canvas class="bar-clip__liquid" aria-hidden="true"></canvas>
+              <span class="bar-clip__content">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3h10l-1.5 6H8.5L7 3z"/><path d="M8.5 9 7 20h10l-1.5-11"/><path d="M10 14h4"/></svg>
+                <span>Drinks</span>
+              </span>
+            </span>
+          </button>
+
+          <button type="button" class="bar-tap">
+            <span class="bar-handle" aria-hidden="true">
+              <i class="bar-knob"></i>
+              <i class="bar-arm"></i>
+            </span>
+            <span class="bar-column" aria-hidden="true">
+              <i class="bar-collar"></i>
+            </span>
+            <span class="bar-clip">
+              <canvas class="bar-clip__liquid" aria-hidden="true"></canvas>
+              <span class="bar-clip__content">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M8 3v4M16 3v4M4 11h16"/></svg>
+                <span>Events</span>
+              </span>
+            </span>
+          </button>
+
+          <button type="button" class="bar-tap">
+            <span class="bar-handle" aria-hidden="true">
+              <i class="bar-knob"></i>
+              <i class="bar-arm"></i>
+            </span>
+            <span class="bar-column" aria-hidden="true">
+              <i class="bar-collar"></i>
+            </span>
+            <span class="bar-clip">
+              <canvas class="bar-clip__liquid" aria-hidden="true"></canvas>
+              <span class="bar-clip__content">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-4.5 7-11a7 7 0 1 0-14 0c0 6.5 7 11 7 11z"/><circle cx="12" cy="10" r="2.2"/></svg>
+                <span>Visit</span>
+              </span>
+            </span>
+          </button>
+        </div>
+
+        <div class="bar-counter">
+          <div class="bar-top" aria-hidden="true">
+            <span class="bar-tray"></span>
+          </div>
+          <div class="bar-front" aria-hidden="true">
+            <span class="bar-brand">THE TAPROOM</span>
+          </div>
+        </div>
+      </nav>
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
